@@ -1,0 +1,1 @@
+# Convert by EasyEDA output Altium file
