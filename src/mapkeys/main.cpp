@@ -12,15 +12,11 @@ int main(int argc, const char *argv[])
     fd_set rfds;
     int retval, i;
 
-    if (argc < 3)
+    if (argc < 2)
     {
-        fprintf(stderr, "Usage: %s devname keyboard\n",
-                argv[0]);
+        fprintf(stderr, "Usage: %s devname\n",argv[0]);
         return 1;
     }
-
-    if (argv[2][0] != 'k')
-        return 2;
 
     filename = argv[1];
 
