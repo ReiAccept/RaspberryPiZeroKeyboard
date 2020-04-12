@@ -1,0 +1,7 @@
+##ignore this file##
+*.exe
+*.o
+*.swp
+*.run
+debug.log
+__Previews
