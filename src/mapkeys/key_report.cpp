@@ -10,11 +10,9 @@ int key_report(char report[8], char buf[BUF_LEN], int *hold)
     for (; tok != NULL; tok = strtok(NULL, " "))
     {
 
-        if (strncmp(tok, "--", 2) == 0)
-            tok += 2;
+        if (strncmp(tok, "--", 2) == 0) tok += 2;
 
-        if (strcmp(tok, "quit") == 0)
-            return -1;
+        if (strcmp(tok, "quit") == 0) return -1;
 
         if (strcmp(tok, "hold") == 0)
         {
@@ -30,8 +28,7 @@ int key_report(char report[8], char buf[BUF_LEN], int *hold)
                     report[2 + key++] = kval[i].val;
                     break;
                 }
-            if (kval[i].opt != NULL)
-                continue;
+            if (kval[i].opt != NULL) continue;
         }
 
         for (i = 0; kmod[i].opt != NULL; i++)
@@ -40,11 +37,9 @@ int key_report(char report[8], char buf[BUF_LEN], int *hold)
                 report[0] = report[0] | kmod[i].val;
                 break;
             }
-        if (kmod[i].opt != NULL)
-            continue;
+        if (kmod[i].opt != NULL) continue;
 
-        if (key < 6)
-            fprintf(stderr, "unknown option: %s\n", tok);
+        if (key < 6) fprintf(stderr, "unknown option: %s\n", tok);
     }
     return 8;
 }

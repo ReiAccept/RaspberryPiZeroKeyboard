@@ -14,7 +14,7 @@ int main(int argc, const char *argv[])
 
     if (argc < 2)
     {
-        fprintf(stderr, "Usage: %s devname\n",argv[0]);
+        fprintf(stderr, "Usage: %s devname\n",argv[0]);  //应有一个参数，例如/dev/hidg0
         return 1;
     }
 
@@ -26,7 +26,7 @@ int main(int argc, const char *argv[])
         return 3;
     }
 
-    while (42)
+    while (true)
     {
 
         FD_ZERO(&rfds);
@@ -34,8 +34,7 @@ int main(int argc, const char *argv[])
         FD_SET(fd, &rfds);
 
         retval = select(fd + 1, &rfds, NULL, NULL, NULL);
-        if (retval == -1 && errno == EINTR)
-            continue;
+        if (retval == -1 && errno == EINTR) continue;
         if (retval < 0)
         {
             perror("select()");
@@ -46,8 +45,7 @@ int main(int argc, const char *argv[])
         {
             cmd_len = read(fd, buf, BUF_LEN - 1);
             printf("recv report:");
-            for (i = 0; i < cmd_len; i++)
-                printf(" %02x", buf[i]);
+            for (i = 0; i < cmd_len; i++) printf(" %02x", buf[i]);
             printf("\n");
         }
 
@@ -56,8 +54,7 @@ int main(int argc, const char *argv[])
             memset(report, 0x0, sizeof(report));
             cmd_len = read(STDIN_FILENO, buf, BUF_LEN - 1);
 
-            if (cmd_len == 0)
-                break;
+            if (cmd_len == 0) break;
 
             buf[cmd_len - 1] = '\0';
             hold = 0;
@@ -65,8 +62,7 @@ int main(int argc, const char *argv[])
             memset(report, 0x0, sizeof(report));
             to_send = key_report(report, buf, &hold);
 
-            if (to_send == -1)
-                break;
+            if (to_send == -1) break;
 
             if (write(fd, report, to_send) != to_send)
             {
